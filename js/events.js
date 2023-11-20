@@ -460,8 +460,9 @@ const adulthoodEvents = [
     reflectOnHappiness(id) {
       // Update player stats or provide insights based on the player's reflection
       player.happiness += 10;
+      player.money.total -= 1000;
       const resultMessage = `
-        <p>You've taken a moment to reflect on the relationship between money and happiness, gaining a deeper understanding.</p>
+        <p>You've taken a moment to reflect on the relationship between money and happiness, gaining a deeper understanding. You decide to take some time off work to be happy, losing some money in the process</p>
       `;
       // Display the result and close the event
       textContainer.innerHTML += resultMessage;
@@ -532,8 +533,9 @@ const adulthoodEvents = [
     considerDistribution(id) {
       // Handle consequences of considering the question of just distribution (update stats, display messages, etc.)
       player.morality += 10;
+      player.money.total = player.money.total/2
       const resultMessage = `
-        <p>You take a moment to consider the question of just distribution, strengthening your moral convictions.</p>
+        <p>You take a moment to consider the question of just distribution, strengthening your moral convictions but distributing your own wealth</p>
       `;
       // Display the result and close the event
       textContainer.innerHTML += resultMessage;
@@ -550,6 +552,264 @@ const adulthoodEvents = [
       closeStoryEvent(id);
     }
   },
+  {
+    display() {
+      createStoryEvent({
+        title: 'Selling Pharmaceuticals',
+        triggered: false,
+        body(id) {
+          return `
+            <p>You find yourself in a situation where you have access to pharmaceuticals, and there's a demand for them. Selling these medications could provide you with a significant financial boost, but it raises ethical considerations.</p>
+            <br>
+            <div class="option" onclick="adulthoodEvents[14].sellPharmaceuticals('${id}')">Sell Pharmaceuticals</div>
+            <div class="option" onclick="adulthoodEvents[14].rejectSelling('${id}')">Reject Selling</div>
+          `;
+        }
+      });
+    },
+    sellPharmaceuticals(id) {
+      // Update player stats
+      player.money.total += 5000; // Adjust the income as needed
+      player.morality -= 15;
+  
+      // Return the result message
+      const resultMessage = `
+        <p>You've chosen to sell pharmaceuticals, gaining money but compromising your moral values.</p>
+      `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+    rejectSelling(id) {
+      // Handle consequences of rejecting selling pharmaceuticals (update stats, display messages, etc.)
+      const resultMessage = `
+        <p>You've decided not to sell pharmaceuticals at this time, maintaining your moral stance.</p>
+      `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    }
+  },
+  {
+    display() {
+      createStoryEvent({
+        title: 'Incentivizing Family Member to Get a Job',
+        triggered: false,
+        body(id) {
+          return `
+            <p>Your unemployed family member is unemployed. You have the opportunity to incentivize and encourage them to get a minimun wage job, potentially improving their life or not and also affecting your relationship.</p>
+            <br>
+            <div class="option" onclick="adulthoodEvents[15].encourageJobSearch('${id}')">Encourage Job Search</div>
+            <div class="option" onclick="adulthoodEvents[15].ignoreJobSearch('${id}')">Ignore the Situation</div>
+          `;
+        }
+      });
+    },
+    encourageJobSearch(id) {
+      // Update player stats and family relationship
+      player.relationships.family += 10;
+      player.happiness += 10;
+  
+      // Return the result message
+      const resultMessage = `
+        <p>You've encouraged your family member to actively search for a job. Your relationship improves, and you both experience a boost in happiness.</p>
+      `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+    ignoreJobSearch(id) {
+      // Update player stats and family relationship
+      player.relationships.family -= 10;
+      player.money.total -= 1000;
+  
+      // Handle consequences of ignoring the job search (update stats, display messages, etc.)
+      const resultMessage = `
+        <p>You've decided to ignore the situation, leading to a strain in your relationship with your family member and money you have to lend them for their expenses.</p>
+      `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    }
+  },
+  {
+    display() {
+      createStoryEvent({
+        title: 'Ethical Dilemma in Purchasing',
+        triggered: false,
+        body(id) {
+          return `
+            <p>You come across a rare and expensive item that you've always desired, an ivory column. Purchasing it could bring you joy, but it raises ethical questions regarding materialism and the value of possessions. What will you do?</p>
+            <br>
+            <div class="option" onclick="adulthoodEvents[16].purchaseItem('${id}')">Purchase the Item</div>
+            <div class="option" onclick="adulthoodEvents[16].walkAway('${id}')">Walk Away</div>
+          `;
+        }
+      });
+    },
+    purchaseItem(id) {
+      // Update player stats
+      player.money.total -= 20000; // Adjust the cost as needed
+      player.happiness += 15;
+  
+      // Return the result message
+      const resultMessage = `
+        <p>You've decided to purchase the item, satisfying a desire and boosting your happiness. However, it comes at a financial cost.</p>
+      `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+    walkAway(id) {
+      // Handle consequences of walking away (update stats, display messages, etc.)
+      const resultMessage = `
+        <p>You've chosen not to purchase the item, valuing your ethical stance over immediate gratification.</p>
+      `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    }
+  },
+  {
+    display() {
+      createStoryEvent({
+        title: 'Reflection on the Value of Work',
+        triggered: false,
+        body(id) {
+          return `
+            <p>You find yourself contemplating the meaning and value of your work. Is it just a means to an end, or does it hold intrinsic value for you? This reflection could impact your career choices and satisfaction.</p>
+            <br>
+            <div class="option" onclick="adulthoodEvents[17].valueOfWork('${id}')">Find Intrinsic Value</div>
+            <div class="option" onclick="adulthoodEvents[17].jobForPaycheck('${id}')">See it as a Paycheck</div>
+          `;
+        }
+      });
+    },
+    valueOfWork(id) {
+      // Update player stats
+      player.happiness += 10;
+      player.jobSatisfaction += 15;
+  
+      // Return the result message
+      const resultMessage = `
+        <p>You've found intrinsic value in your work, leading to increased happiness and job satisfaction.</p>
+      `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+    jobForPaycheck(id) {
+      // Update player stats
+      player.happiness -= 5;
+      player.jobSatisfaction -= 10;
+  
+      // Handle consequences of seeing work as just a paycheck (update stats, display messages, etc.)
+      const resultMessage = `
+        <p>You've chosen to see your work as merely a means to a paycheck, impacting your overall job satisfaction and performance.</p>
+      `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    }
+  },
+  {
+    display() {
+      createStoryEvent({
+        title: 'Exploring Minimalism',
+        triggered: false,
+        body(id) {
+          return `
+            <p>You come across the concept of minimalism, emphasizing the value of experiences over material possessions. This prompts you to reevaluate your lifestyle and make choices that align with minimalist principles.</p>
+            <br>
+            <div class="option" onclick="adulthoodEvents[18].embraceMinimalism('${id}')">Embrace Minimalism</div>
+            <div class="option" onclick="adulthoodEvents[18].stickToCurrentLifestyle('${id}')">Stick to Current Lifestyle</div>
+          `;
+        }
+      });
+    },
+    embraceMinimalism(id) {
+      // Update player stats
+      player.happiness += 15;
+      player.materialPossessions -= 10;
+  
+      // Return the result message
+      const resultMessage = `
+        <p>You've chosen to embrace minimalism, finding joy in experiences and reducing your attachment to material possessions.</p>
+      `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+    stickToCurrentLifestyle(id) {
+      // Handle consequences of sticking to the current lifestyle (update stats, display messages, etc.)
+      const resultMessage = `
+        <p>You've decided to stick to your current lifestyle, maintaining your existing level of material possessions.</p>
+      `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    }
+  },
+  {
+    display() {
+      // Check if the current money total is greater than 0
+      if (player.money.total > 0) {
+        createStoryEvent({
+          title: 'Investing in Gold Apocalypse',
+          triggered: false,
+          body(id) {
+            return `
+              <p>You become convinced that the world is on the brink of an apocalypse, and you believe that investing in gold is the only way to secure your future. This decision involves giving up all your current money for gold, but the potential consequences are uncertain.</p>
+              <br>
+              <div class="option" onclick="adulthoodEvents[19].investInGold('${id}')">Invest in Gold</div>
+              <div class="option" onclick="adulthoodEvents[19].reconsiderChoice('${id}')">Reconsider Your Choice</div>
+            `;
+          }
+        });
+      } else {
+        // If the current money total is not greater than 0, display a message indicating the lack of funds
+        textContainer.innerHTML += "<p>You don't have enough money to consider investing in gold at the moment.</p>";
+      }
+    },
+    investInGold(id) {
+      // Update player stats only if the current money total is greater than 0
+      if (player.money.total > 0) {
+        player.money.total = 0;
+        player.goldReserves += 5000; // Adjust the gold investment as needed
+        player.happiness -= 15; // Reflect the stress of the decision
+  
+        // Return the result message
+        const resultMessage = `
+          <p>You've decided to invest all your money in gold, driven by a fear of an impending apocalypse. Your financial situation has changed significantly, but the uncertainty of the future weighs on your happiness.</p>
+        `;
+  
+        // Display the result and close the event
+        textContainer.innerHTML += resultMessage;
+        closeStoryEvent(id);
+      }
+    },
+    reconsiderChoice(id) {
+      // Handle consequences of reconsidering the gold investment (update stats, display messages, etc.)
+      const resultMessage = `
+        <p>You've reconsidered your choice and decided not to invest all your money in gold. While maintaining your current financial situation, the fear of an apocalypse still lingers in your mind.</p>
+      `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    }
+  }
+  
 
 ];
 

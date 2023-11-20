@@ -25,8 +25,7 @@ const menu = {
             </li>
             <li onclick="menu.shopping()" class="option activity-option ${player.age < 14 ? 'disabled' : ''}">
             <img src="images/options/shopping.png" alt="shopping"> Shopping
-
-        </li>
+             </li>
 
             <li onclick="windows.university.display()" class="option activity-option ${player.age < 18 ? 'disabled' : ''}">
                 <img src="images/options/university.png
@@ -195,13 +194,75 @@ const menu = {
         menuTemplate.style.display = 'block';
         menuTitle.innerText = 'Invest';
         menuBody.innerHTML = `
-        <ul>
-            <li onclick="menu.invest.stocks()" class="option">Stocks</li>
-
-            <li onclick="menu.invest.Crypto()" class="option">Crypto</li>
-        </ul>
+            <ul>
+                <li onclick="menu.invest.stocks.display()" class="option">Stocks</li>
+                <li onclick="menu.invest.crypto.display()" class="option">Crypto</li>
+            </ul>
         `;
     },
+        stocks: {
+            display() {
+                menuTitle.innerText = 'stocks';
+                menuBody.innerHTML = `
+                    <ul>
+                        <li class="option" onclick="menu.invest.stocks.Tech()">Tech Stocks</li>
+                        <li class="option" onclick="menu.invest.stocks.Income()">Income Stocks</li>
+                        <li class="option" onclick="menu.invest.stocks.Blue()">Blue-Chip Stocks</li>
+                    </ul>
+                `;
+            },
+            Tech() {
+                menuTitle.innerText = 'Tech';
+                menuBody.innerHTML = `
+                    <ul>
+                        <!-- Add your list of Tech Stocks here -->
+                        <li class="option" onclick="menu.invest.stocks.details('Apple Inc.')">Apple Inc.</li>
+                        <li class="option" onclick="menu.invest.stocks.details('Microsoft Corporation')">Microsoft Corporation</li>
+                        <!-- Add more as needed -->
+                    </ul>
+                `;
+            },
+            Income() {
+                menuTitle.innerText = 'Income';
+                menuBody.innerHTML = `
+                    <ul>
+                        <!-- Add your list of Income Stocks here -->
+                        <li class="option" onclick="menu.invest.stocks.details('Procter & Gamble Co.')">Procter & Gamble Co.</li>
+                        <li class="option" onclick="menu.invest.stocks.details('Johnson & Johnson')">Johnson & Johnson</li>
+                        <!-- Add more as needed -->
+                    </ul>
+                `;
+            },
+            Blue() {
+                menuTitle.innerText = 'Blue-chip';
+                menuBody.innerHTML = `
+                    <ul>
+                        <!-- Add your list of Blue-Chip Stocks here -->
+                        <li class="option" onclick="menu.invest.stocks.details('IBM')">IBM</li>
+                        <li class="option" onclick="menu.invest.stocks.details('The Coca-Cola Company')">The Coca-Cola Company</li>
+                        <!-- Add more as needed -->
+                    </ul>
+                `;
+            },
+            details(stockName) {
+                // You can display detailed information for the selected stock
+                // For example, you might want to show current stock price, performance, etc.
+                menuTitle.innerText = stockName;
+                menuBody.innerHTML = `
+                    <p>This is where you can display detailed information about ${stockName}.</p>
+                    <!-- Add more details as needed -->
+                `;
+            }
+        },
+        // Add other investment options (e.g., crypto) similarly
+        crypto: {
+            display() {
+                // Display crypto options
+            },
+            // Add crypto-specific functions
+        
+    },
+    
     shopping() {
         if (player.age < 14) return
 
@@ -209,6 +270,8 @@ const menu = {
         menuTitle.innerText = 'Shopping'
         menuBody.innerHTML = `
         <ul>
+        <li onclick="menu.instruments()" class="option">Instruments</li>
+        <li onclick="menu.electronics()" class="option">Electronics</li>
         <li class="option" onclick="menu.foodAndDrinks.display()">Food and drinks</li>
         </ul>
         `
@@ -286,75 +349,6 @@ const menu = {
                 </ul>
                 `
             }
-        }
-    },
-    invest: {
-        Stocks: {
-            display() {
-                menuTitle.innerText = 'Stocks';
-                menuBody.innerHTML = `
-                <ul>
-                    <li class="option" onclick="menu.invest.stocks.display()">Stocks</li>
-                </ul>
-                `;
-            },
-            stocks: {
-                display() {
-                    menuTitle.innerText = 'stocks';
-                    menuBody.innerHTML = `
-                    <ul>
-                        <li class="option" onclick="menu.invest.stocks.Tech()">Tech Stocks</li>
-                        <li class="option" onclick="menu.invest.stocks.Income()">Income Stocks</li>
-                        <li class="option" onclick="menu.invest.stocks.Blue()">Blue-Chip Stocks</li>
-                    </ul>
-                    `;
-                },
-                Tech() {
-                    menuTitle.innerText = 'Tech';
-                    menuBody.innerHTML = `
-                    <ul>
-                        <!-- Add your list of Tech Stocks here -->
-                        <li class="option" onclick="menu.invest.stocks.details('Apple Inc.')">Apple Inc.</li>
-                        <li class="option" onclick="menu.invest.stocks.details('Microsoft Corporation')">Microsoft Corporation</li>
-                        <!-- Add more as needed -->
-                    </ul>
-                    `;
-                },
-                Income() {
-                    menuTitle.innerText = 'Income';
-                    menuBody.innerHTML = `
-                    <ul>
-                        <!-- Add your list of Income Stocks here -->
-                        <li class="option" onclick="menu.invest.stocks.details('Procter & Gamble Co.')">Procter & Gamble Co.</li>
-                        <li class="option" onclick="menu.invest.stocks.details('Johnson & Johnson')">Johnson & Johnson</li>
-                        <!-- Add more as needed -->
-                    </ul>
-                    `;
-                },
-                Blue() {
-                    menuTitle.innerText = 'Blue-chip';
-                    menuBody.innerHTML = `
-                    <ul>
-                        <!-- Add your list of Blue-Chip Stocks here -->
-                        <li class="option" onclick="menu.invest.stocks.details('IBM')">IBM</li>
-                        <li class="option" onclick="menu.invest.stocks.details('The Coca-Cola Company')">The Coca-Cola Company</li>
-                        <!-- Add more as needed -->
-                    </ul>
-                    `;
-                },
-                details(stockName) {
-                    // You can display detailed information for the selected stock
-                    // For example, you might want to show current stock price, performance, etc.
-                    menuTitle.innerText = stockName;
-                    menuBody.innerHTML = `
-                    <p>This is where you can display detailed information about ${stockName}.</p>
-                    <!-- Add more details as needed -->
-                    `;
-                }
-            }
-        },
-        Crypto() {
-            // Add your Crypto-related functionality here
         }
     },
     
