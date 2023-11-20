@@ -418,7 +418,7 @@ const names = {
     },
     korean: {
         male: ['Kim', 'Yejun', 'SeoJoon', 'Jiho'],
-        female: ['Suni', 'Yon', 'Mi-Suk']
+        female: ['Suni', 'Yon', 'Mi-Suk', 'Dain']
     },
     turkish: {
         male: ['Adem', 'Acar', 'Kadir'],
@@ -468,7 +468,7 @@ const names = {
 
 const surnames = {
     spanish: ['Gonzales', 'Gonzalez', 'Jimenez', 'Chavez', 'Andreone', 'Arevalo', 'Acosta', 'Rodriguez', 'Gomez', 'Oviedo', 'Hernandez', 'Paredes', 'Torres', 'Valenzuela', 'Nuñez', 'Muñoz', 'Andrade', 'Enrique', 'Coronado', 'Preciado', 'Pineda', 'Moreyra'],
-    english: ['Johnson', 'Adamson', 'Jobs', 'Gates', 'Bush', 'Adams'],
+    english: ['Johnson', 'Adamson', 'Jobs', 'Gates', 'Bush', 'Adams', 'Bailey'],
     portuguese: ['Freitas', 'De Sousa', 'Aveiro', 'Silva'],
     french: ['Lamont', 'Martin', 'Bernard'],
     arab: ['Ahmad', 'Abadi', 'Ayad', 'Ramaiti'],
@@ -488,12 +488,12 @@ const surnames = {
 }
 
 const popularYoutubers = [
-    { user: 'Sr Bestia', subscribers: 190000000 },
+    { user: 'Sr Best', subscribers: 190000000 },
     { user: 'Piudipai', subscribers: 111000000 },
-    { user: 'ORichMC', subscribers: 10000000 },
-    { user: 'BBE', subscribers: 92000000 },
-    { user: 'Piernafloo', subscribers: 52000000 },
-    { user: 'PlayGeorge', subscribers: 90000000 },
+    { user: 'Bailey', subscribers: 10000000 },
+    { user: 'Crypto', subscribers: 92000000 },
+    { user: 'BitLife', subscribers: 52000000 },
+    { user: 'CoinBits', subscribers: 90000000 },
     { user: 'Rincon de Jose', subscribers: 46000000 },
     { user: 'Fast', subscribers: 58200000 }
 ]
