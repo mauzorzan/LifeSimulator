@@ -91,14 +91,6 @@ const deathScreen = () => {
     obituaryContainer.innerHTML += `<p>${pronoun} left this world with ${moneyFormat(player.money.total)} $ on his bank account. ${player.inventory.houses.length !== 0 ? `${pronoun} had ${player.inventory.houses.length} properties.` : `${pronoun} was homeless.`}</p><br>`
 
     obituaryContainer.innerHTML += `
-    <h3 class="yellow">Criminal record: </h3>
-    <ul>
-    <li><b class="yellow">Murder: </b>${player.criminalRecord.murder}</li>
-    <li><b class="yellow">Murder attempts:</b>${player.criminalRecord.murderAttempts}</li>
-    </ul><br>
-    `
-
-    obituaryContainer.innerHTML += `
     <p>${pronoun} passed away at age of ${player.age} ${player.deathCause} in ${player.location}</p>
     `
 

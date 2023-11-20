@@ -258,7 +258,7 @@ const countriesData = [
         }
     },
     {
-        country: 'Taiwan', nationality: 'taiwanese', language: 'chinese', laws: {
+        country: 'Singapore', nationality: 'taiwanese', language: 'chinese', laws: {
             abort: false,
             gay_weddings: true,
             banned_youtube: false,

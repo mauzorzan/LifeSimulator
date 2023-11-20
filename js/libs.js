@@ -157,8 +157,8 @@ const statbarColorer = () => {
 }
 
 const handleStatBars = (person, isPlayer) => {
-    const stats = ['health', 'happiness', 'smartness', 'appearance', 'fitness'];
-    const windowStat = ['relationWithPlayer', 'health', 'happiness', 'smartness', 'appearance', 'fitness']
+    const stats = ['health', 'happiness', 'Intelligence', 'appearance', 'fitness'];
+    const windowStat = ['relationWithPlayer', 'health', 'happiness', 'Intelligence', 'appearance', 'fitness']
 
     if(isPlayer) for (let stat of stats) {
         document.getElementById(`${stat}-bar`).style.width = `${person.stats[stat]}%`
@@ -209,7 +209,7 @@ const moneyFormat = (money) => {
 }
 
 const cvListifier = (player) =>{
-    if(player.cv.length === 0) return `<p>You do not have job history</p>`
+    if(player.cv.length === 0) return `<p>You do not have job Philosophy</p>`
 
     let string = '';
     for(let job of player.cv){

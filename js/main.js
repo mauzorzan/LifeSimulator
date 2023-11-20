@@ -23,7 +23,7 @@ class Person {
     stats = {
         health: randomStat(70, 30),
         happiness: randomStat(0, 100),
-        smartness: randomStat(0, 100),
+        Intelligence: randomStat(0, 100),
         fitness: randomStat(0, 35),
         appearance: randomStat(0, 100)
     }
@@ -77,7 +77,7 @@ class Person {
 
     job = 'none';
 
-    //in cv goes your employment history
+    //in cv goes your employment Philosophy
     cv = [];
 
     money = {

@@ -16,37 +16,23 @@ const menu = {
             <li onclick="menu.freetime()" class="option activity-option">
                 <img src="images/options/free-time.png" alt="free-time" on> Free time
             </li>
-            <li onclick="menu.cars()" class="option activity-option ${player.age < 18 ? 'disabled' : ''}">
-                <img src="images/options/cars.png" alt="car"> Cars
-            </li>
+
             <li onclick="menu.realEstate()" class="option activity-option ${player.age < 16 ? 'disabled' : ''}">
                 <img src="images/options/real-estate.png" alt="house"> Real Estate
-            </li>
-            <li onclick="menu.shopping()" class="option activity-option ${player.age < 14 ? 'disabled' : ''}">
-                <img src="images/options/shopping.png" alt="shopping"> Shopping
             </li>
             <li onclick="menu.emigrate()" class="option activity-option ${player.age < 18 ? 'disabled' : ''}">
                 <img src="images/options/emigrate.png" alt="emigrate globe earth"> Emigrate
             </li>
-            <li onclick="windows.driverLicense.display()" class="option activity-option ${player.age < 18 ? 'disabled' : ''}">
-                <img src="images/options/drivelicense.png">Driver license
-            </li>
-            <li onclick="windows.love.findLove()" class="option activity-option ${player.age < 14 ? 'disabled' : ''}">
-                <img src="images/options/love.png" style="width: 35px; height: 35px"> Love
-            </li>
-            <li onclick="windows.plasticSurgeries.display()" class="option activity-option ${player.age < 18 ? 'disabled' : ''}">
-                <img src="images/options/plasticSurgery.png"> Plastic surgeries
-            </li>
+            <li onclick="menu.shopping()" class="option activity-option ${player.age < 14 ? 'disabled' : ''}">
+            <img src="images/options/shopping.png" alt="shopping"> Shopping
+
+        </li>
+
             <li onclick="windows.university.display()" class="option activity-option ${player.age < 18 ? 'disabled' : ''}">
                 <img src="images/options/university.png
                 ">University
             </li>
-            <li class="option activity-option ${player.age < 14 ? 'disabled' : ''}" onclick="menu.criminal()">
-                <img src="images/options/criminal.png"> Criminal
-            </li>
-            <li class="option activity-option ${player.age < 5 ? 'disabled' : ''}" onclick="windows.suicide.display()">
-                Suicide
-            </li>
+
         </ul>
         `
     },
@@ -77,7 +63,7 @@ const menu = {
         <li class="option ${player.age < 8 ? 'disabled' : ''}" onclick="windows.freetime.handleSwitch('reading')">
         <div class="column">
             <h4>Read books</h4>
-            <p class="yellow">+3 smartness</p>
+            <p class="yellow">+3 Intelligence</p>
         </div> 
         <div class="column switch-container">
             <div class="switch-background">
@@ -138,9 +124,7 @@ const menu = {
             Watch a movie
         </li>
 
-        <li class="option ${player.age < 18 ? 'disabled' : ''}" onclick="windows.freetime.goClubbing.display()">
-            Go clubbing
-        </li>
+
         </ul>
         `
     },
@@ -205,6 +189,19 @@ const menu = {
             else cellContainer.innerHTML = ownedAssets(type)
         }
     },
+    invest() {
+        if (player.age < 14) return;
+    
+        menuTemplate.style.display = 'block';
+        menuTitle.innerText = 'Invest';
+        menuBody.innerHTML = `
+        <ul>
+            <li onclick="menu.invest.stocks()" class="option">Stocks</li>
+
+            <li onclick="menu.invest.Crypto()" class="option">Crypto</li>
+        </ul>
+        `;
+    },
     shopping() {
         if (player.age < 14) return
 
@@ -212,9 +209,6 @@ const menu = {
         menuTitle.innerText = 'Shopping'
         menuBody.innerHTML = `
         <ul>
-        <li onclick="menu.weapons()" class="option">Weapons</li>
-        <li onclick="menu.instruments()" class="option">Instruments</li>
-        <li onclick="menu.electronics()" class="option">Electronics</li>
         <li class="option" onclick="menu.foodAndDrinks.display()">Food and drinks</li>
         </ul>
         `
@@ -294,6 +288,76 @@ const menu = {
             }
         }
     },
+    invest: {
+        Stocks: {
+            display() {
+                menuTitle.innerText = 'Stocks';
+                menuBody.innerHTML = `
+                <ul>
+                    <li class="option" onclick="menu.invest.stocks.display()">Stocks</li>
+                </ul>
+                `;
+            },
+            stocks: {
+                display() {
+                    menuTitle.innerText = 'stocks';
+                    menuBody.innerHTML = `
+                    <ul>
+                        <li class="option" onclick="menu.invest.stocks.Tech()">Tech Stocks</li>
+                        <li class="option" onclick="menu.invest.stocks.Income()">Income Stocks</li>
+                        <li class="option" onclick="menu.invest.stocks.Blue()">Blue-Chip Stocks</li>
+                    </ul>
+                    `;
+                },
+                Tech() {
+                    menuTitle.innerText = 'Tech';
+                    menuBody.innerHTML = `
+                    <ul>
+                        <!-- Add your list of Tech Stocks here -->
+                        <li class="option" onclick="menu.invest.stocks.details('Apple Inc.')">Apple Inc.</li>
+                        <li class="option" onclick="menu.invest.stocks.details('Microsoft Corporation')">Microsoft Corporation</li>
+                        <!-- Add more as needed -->
+                    </ul>
+                    `;
+                },
+                Income() {
+                    menuTitle.innerText = 'Income';
+                    menuBody.innerHTML = `
+                    <ul>
+                        <!-- Add your list of Income Stocks here -->
+                        <li class="option" onclick="menu.invest.stocks.details('Procter & Gamble Co.')">Procter & Gamble Co.</li>
+                        <li class="option" onclick="menu.invest.stocks.details('Johnson & Johnson')">Johnson & Johnson</li>
+                        <!-- Add more as needed -->
+                    </ul>
+                    `;
+                },
+                Blue() {
+                    menuTitle.innerText = 'Blue-chip';
+                    menuBody.innerHTML = `
+                    <ul>
+                        <!-- Add your list of Blue-Chip Stocks here -->
+                        <li class="option" onclick="menu.invest.stocks.details('IBM')">IBM</li>
+                        <li class="option" onclick="menu.invest.stocks.details('The Coca-Cola Company')">The Coca-Cola Company</li>
+                        <!-- Add more as needed -->
+                    </ul>
+                    `;
+                },
+                details(stockName) {
+                    // You can display detailed information for the selected stock
+                    // For example, you might want to show current stock price, performance, etc.
+                    menuTitle.innerText = stockName;
+                    menuBody.innerHTML = `
+                    <p>This is where you can display detailed information about ${stockName}.</p>
+                    <!-- Add more details as needed -->
+                    `;
+                }
+            }
+        },
+        Crypto() {
+            // Add your Crypto-related functionality here
+        }
+    },
+    
     emigrate() {
         if (player.age < 18) return
         menuTemplate.style.display = 'block';
@@ -376,7 +440,7 @@ const menu = {
                 <img src="images/options/skills.png" id="skills-icon" alt="skills"> Skills
             </li>
             <li class="option" onclick="menu.inventory()">
-                <img src="images/options/inventory.png" alt="inventory">Inventory
+                <img src="images/options/inventory.png" alt="inventory">Assets
             </li>
             <li class="option" onclick="windows.playerData.education()">
                 <img src="images/options/education.png" alt="education"> Education
@@ -384,15 +448,8 @@ const menu = {
             <li class="option" onclick="windows.playerData.cv()">
                 <img src="images/options/cv.png" alt="curriculum">Curriculum Vitae
             </li>
-            <li class="option ${player.age < 15 ? 'disabled' : ''}" id="sexuality" onclick="windows.sexuality.display()">
-                <img src="images/options/sexuality.png" alt="sexuality"> Sexuality
-            </li>
-            <li class="option" onclick="alert('not implemented yet')">
-                <img src="images/options/health.png" alt="health"> Health
-            </li>
-            <li class="option" onclick="windows.playerData.criminalRecord()">
-                <img src="images/options/criminal-record.png" alt="criminal-record"> Criminal record
-            </li>
+
+
         </ul>
         `
     },
@@ -712,7 +769,6 @@ const windows = {
                 <p><b>Age:</b> ${player.age}</p>
                 <p><b>Nationality:</b> ${player.nationality}</p>
                 <p><b>Location:</b> ${player.location}</p>
-                <p><b>Sexuality:</b> ${player.sexuality}</p>
                 <div class="option" onclick="closeEvent()">Close</div>
                 `
             })
@@ -1332,13 +1388,9 @@ const windows = {
                 <p><b>Nationality:</b> ${person.nationality}</p>
                 <ul>
                 <li>Opinion: <div class="window-bar"><div class="bar-progress" id="window-relationWithPlayer-bar"></div></div> </li>
-                ${personCategory === 'partner' ? `
-                <li>Love: 
-                    <div class="window-bar"><div style="background-color:#bb7a85;width:${person.stats.loveToPartner}%;height: 100%""></div></div> 
-                </li>` : ''}
                 <li>Health: <div class="window-bar"><div class="bar-progress" id="window-health-bar"></div></div> </li>
                 <li>Happiness: <div class="window-bar"><div class="bar-progress" id="window-happiness-bar"></div></div> </li>
-                <li>Smartness: <div class="window-bar"><div class="bar-progress" id="window-smartness-bar"></div></div> </li>
+                <li>Intelligence: <div class="window-bar"><div class="bar-progress" id="window-Intelligence-bar"></div></div> </li>
                 <li>Appearance: <div class="window-bar"><div class="bar-progress" id="window-appearance-bar"></div></div> </li>
                 <li>Fitness: <div class="window-bar"><div class="bar-progress" id="window-fitness-bar"></div></div> </li>
                 </ul>
@@ -1602,28 +1654,7 @@ const windows = {
             }
         }
     },
-    sexuality: {
-        display() {
-            if (player.age < 15) return
-
-            showEvent({
-                title: 'Sexuality',
-                body: `
-                <h3>Choose your sexual orientation</h3>
-                <p>You are currently ${player.sexuality}</p>
-                <div class="option" onclick="windows.sexuality.choose('heterosexual')">Heterosexual</div>
-                <div class="option" onclick="windows.sexuality.choose('homosexual')">Homosexual</div>
-                <div class="option" onclick="windows.sexuality.choose('bisexual')">Bisexual</div>  
-                `
-            })
-        },
-        choose(sexuality) {
-            player.sexuality = sexuality;
-            closeEvent();
-            menuTemplate.style.display = 'none'
-            textContainer.innerHTML += `<p>I am ${sexuality} now</p>`
-        }
-    },
+   
     driverLicense: {
         display() {
             if (player.age < 18) return;
@@ -1657,141 +1688,8 @@ const windows = {
         },
 
     },
-    prison: {
-        display() {
-            showEvent({
-                title: 'Prison',
-                body: `
-                <p><b>Years left: </b>${player.prison.yearsLeft} years</p>
-                <p><b>Sentence: </b>${player.prison.sentenceTime} years</p>
-                <div class="option" onclick="windows.prison.attempToEscape()">Attempt to escape</div>
-                <div class="option" onclick="windows.prison.lift()">Lift</div>
-                <div class="option" onclick="closeEvent()">Close</div>
-                `
-            })
-        },
-        attempToEscape() {
-            const random = Math.floor(Math.random() * 100);
-            if (random <= 10) {
-                player.prison.jailed = false;
-                player.criminalRecord.prisonEscapes++;
-                eventBody.innerHTML = `
-                <h3>You escaped from prison</h3>
-                `
-                textContainer.innerHTML += `
-                <p>I escaped from prison</p>
-                `
-
-            } else {
-                player.prison.yearsLeft += 2;
-                player.prison.sentenceTime += 2
-                eventBody.innerHTML = `
-                <h3>Your escape attempt failed</h3>
-                <p>+2 years of prison</p>
-                <div class="option" onclick="closeEvent()">...</div>
-                `
-                textContainer.innerHTML += `
-                <p>My escape attempt failed</p>
-                `
-            }
-        },
-        lift() {
-            player.stats.fitness += 5;
-            statsLimit(player);
-
-            eventBody.innerHTML = `
-            <p>You lifted</p>
-            <p>+5 fitness</p>
-            <div class="option" onclick="closeEvent()">Close</div>
-            `
-            textContainer.innerHTML += `
-            <p>I lifted</p>
-            `
-        }
-    },
-    love: {
-        findLove() {
-            if (player.age < 14) return;
-
-            if (player.relationships.partner.length !== 0) {
-                showEvent({
-                    title: 'Are you sure?',
-                    body: `
-                    <p>This means breaking up with your current partner</p>
-                    <div class="option" onclick="windows.relations.romance.break()">Break up</div>
-                    <div class="option" onclick="closeEvent()">I changed my mind</div>
-                    `
-                })
-                return
-            }
-
-            const targetGender = {
-                heterosexual: player.gender === 'male' ? 'female' : 'male',
-                homosexual: player.gender,
-                bisexual: undefined
-            }
-
-            let possiblePartner = new Person(undefined, undefined, player.age, targetGender[player.sexuality], undefined, 0, player.location)
-            if (possiblePartner.gender === player.gender)
-                possiblePartner.sexuality = 'homosexual'
-            if (possiblePartner.age >= 18)
-                jobAssigner(possiblePartner);
-
-            characters.push(possiblePartner)
-
-            showEvent({
-                title: 'Find a partner',
-                body: `
-                <p><b>Name: </b>${possiblePartner.fullName}</p>
-                <p><b>Gender: </b>${capitalize(possiblePartner.gender)}</p>
-                <p><b>Age: </b>${possiblePartner.age}</p>
-                <p><b>Job: </b>${possiblePartner.job !== 'none' ? possiblePartner.job.label : 'unemployed'}</p>
-                ${possiblePartner.job !== 'none' ? `<p><b>Salary: </b>${moneyFormat(possiblePartner.job.salary)} $</p>` : ''}
-                <ul>
-                    <li>Health: <div class="window-bar"><div class="bar-progress" id="window-health-bar" style="width: ${possiblePartner.stats.health}%;"></div></div> </li>
-                    <li>Happiness: <div class="window-bar"><div class="bar-progress" id="window-happiness-bar" style="width: ${possiblePartner.stats.happiness}%;"></div></div> </li>
-                    <li>Smartness: <div class="window-bar"><div class="bar-progress" id="window-smartness-bar" style="width: ${possiblePartner.stats.smartness}%;"></div></div> </li>
-                    <li>Appearance: <div class="window-bar"><div class="bar-progress" id="window-appearance-bar" style="width: ${possiblePartner.stats.appearance}%;"></div></div> </li>
-                    <li>Fitness: <div class="window-bar"><div class="bar-progress" id="window-fitness-bar" style="width: ${possiblePartner.stats.fitness}%;"></div></div> </li>
-                </ul>
-                <div class="option" onclick="windows.love.tryPartner()">Try it</div>
-                <div class="option" onclick="windows.love.dontTryPartner()">Close</div>    
-                `
-            })
-            statbarColorer()
-        },
-        tryPartner() {
-            let possiblePartner = characters.at(-1)
-
-            const random = Math.floor(Math.random() * 100);
-            const appearance = player.stats.appearance;
-
-            const pronoun = possiblePartner.gender === 'male' ? 'He' : 'She';
-
-            if (random + appearance > 100) {
-                possiblePartner.stats.relationWithPlayer = 50 + Math.floor(Math.random() * 50)
-                possiblePartner.stats.loveToPartner = 25 + Math.floor(Math.random() * 25)
-
-                possiblePartner.relationships.partner.push(player)
-
-                player.relationships.partner.push(possiblePartner)
-                eventBody.innerHTML = `
-                    <p>${pronoun} is your partner now</p>
-                    <div class="option" onclick="closeEvent()">Close</div>
-                    `
-            } else {
-                eventBody.innerHTML = `
-                    <p>${pronoun} has rejected you</p>
-                    <div class="option" onclick="closeEvent()">Close</div>
-                    `
-                characters.pop()
-            }
-        },
-        dontTryPartner() {
-            closeEvent()
-            characters.pop()
-        },
-    },
+   
+    
     university: {
         display() {
             if (player.age < 17) return
@@ -1826,40 +1724,46 @@ const windows = {
         chooseCareer(payer, paidBy) {
             eventTitle.innerText = 'Choose your career';
             eventBody.innerHTML = `
-            <select id="career-selector">
-                <option value="medic">Medic</option>
-                <option value="computerScience">Computer Science</option>
-                <option value="biology">Biology</option>
-                <option value="chemistry">Chemistry</option>
-                <option value="history">History</option>
-                <option value="politicalScience">Political Science</option>
-                <option value="math">Math</option>
-            </select>
-            <div class="option" data-label="yes">Study</div>
-            <div class="option" data-label="no">I changed my mind</div>
-            `
+                <select id="career-selector">
+                    <option value="Medicine">Medicine</option>
+                    <option value="computerScience">Computer Science</option>
+                    <option value="biology">Biology</option>
+                    <option value="chemistry">Chemistry</option>
+                    <option value="Philosophy">Philosophy</option>
+                    <option value="politicalScience">Political Science</option>
+                    <option value="math">Math</option>
+                </select>
+                <div class="option" data-label="yes">Study</div>
+                <div class="option" data-label="no">I changed my mind</div>
+            `;
+        
             for (let option of document.getElementsByClassName('option')) {
                 option.addEventListener('click', e => {
-                    const decision = e.target.getAttribute('data-label')
+                    const decision = e.target.getAttribute('data-label');
                     if (decision === 'yes') {
-                        const chosenCareer = document.getElementById('career-selector').value
+                        const chosenCareer = document.getElementById('career-selector').value;
                         player.currentCareer = Object.assign({ studying: true }, universityCareers[chosenCareer]);
                         player.currentCareer.paidBy = paidBy;
                         player.currentEducation = 'university';
-                        player.currentCareer.yearsStudied = 0
+                        player.currentCareer.yearsStudied = 0;
+        
+                        // Display a message indicating that the player has started studying the chosen course
+                        textContainer.innerHTML += `<p>You have started studying ${chosenCareer}</p>`;
+        
                         if (!payer) {
-                            // add loan later
-                            return closeEvent()
+                            return closeEvent();
                         }
+        
                         if (payer.characterIndex === player.characterIndex) {
-                            payer.money.expenses += 6000
+                            payer.money.expenses += 6000;
                         }
+        
                         player.currentCareer.yearsStudied = 0;
                         closeEvent();
                     } else {
                         closeEvent();
                     }
-                })
+                });
             }
         },
         payByMyself() {
@@ -1874,25 +1778,58 @@ const windows = {
         paidByParents() {
             const dad = player.relationships.parents[0];
             const mom = player.relationships.parents[1];
-
+    
             if (dad.alive || mom.alive)
                 textContainer.innerHTML += `<p>I asked my parents to pay </p>`
-
-            if (dad.alive && dad.money.income - dad.money.expenses >= 6000 ||
-                mom.alive && mom.money.income - mom.money.expenses >= 6000) {
-                textContainer.innerHTML += `<p>My parents accepted</p>`
-                windows.university.chooseCareer(dad.alive && dad.money.income - dad.money.expenses >= 6000 ? dad : mom, 'parents');
+    
+            const parentsAccepted = (
+                (dad.alive && dad.money.income - dad.money.expenses >= 6000) ||
+                (mom.alive && mom.money.income - mom.money.expenses >= 6000)
+            );
+    
+            if (parentsAccepted) {
+                textContainer.innerHTML += `<p>My parents accepted</p>`;
+                windows.university.chooseCareer(parentsAccepted ? dad : mom, 'parents');
             } else {
-                textContainer.innerHTML += `<p>My parents rejected</p>`
-                let btn = document.getElementById('parents-pay-university')
-                btn.remove()
+                textContainer.innerHTML += `<p>My parents rejected</p>`;
+    
+                // Handle the case when the parents reject payment (for example, reduce player stats)
+                // ...
+    
+                // Now, prevent the player from attending university
+                player.currentEducation = 'none';
+    
+                // Remove the option to ask parents again
+                let btn = document.getElementById('parents-pay-university');
+                if (btn) {
+                    btn.remove();
+                }
             }
-
         },
+    
         loan() {
-            textContainer.innerHTML += `<p>I applied for a loan</p>`
-            windows.university.chooseCareer(undefined, 'loan');
-        }
+            // Simulate the loan application process with a chance of rejection
+            const loanApproved = Math.random() < 0.8; // 80% chance of approval
+    
+            if (loanApproved) {
+                textContainer.innerHTML += `<p>I got approved for a loan</p>`;
+                windows.university.chooseCareer(undefined, 'loan');
+            } else {
+                textContainer.innerHTML += `<p>My loan application was rejected</p>`;
+    
+                // Handle the case when the loan is rejected (for example, reduce player stats)
+                // ...
+    
+                // Now, prevent the player from attending university
+                player.currentEducation = 'none';
+    
+                // Remove the option to apply for a loan again
+                let btn = document.getElementById('player-pay-university');
+                if (btn) {
+                    btn.remove();
+                }
+            }
+        },
 
     },
     emigrate() {
@@ -1965,7 +1902,7 @@ const windows = {
                             requirementsCompleted++;
                 }
                 const statVerifier = () => {
-                    stats = ['health', 'happiness', 'smartness', 'fitness', 'appearance']
+                    stats = ['health', 'happiness', 'Intelligence', 'fitness', 'appearance']
                     if (stats.includes(requirement[0]))
                         if (player.stats[requirement[0]] >= requirement[1])
                             requirementsCompleted++;
@@ -2026,7 +1963,7 @@ const windows = {
             closeEvent()
             menuTemplate.style.display = 'none'
             textContainer.innerHTML += `
-            <p>I worked harder at my job</p>
+            <p>I worked harder at my job but it affected my health and happiness</p>
             `
             player.job.performance += Math.floor(Math.random() * 10)
             player.stats.happiness -= 5
@@ -2068,7 +2005,6 @@ const windows = {
                 body: `
                 <p><b>Current job: </b>${player.job.label}</p>
                 <p><b>Salary: </b>${moneyFormat(player.job.salary)} $</p>
-                <p><b>Next position: </b>TO DO</p>
                 <p><b>Years working: </b>${year - player.job.since}</p>
                 <p><b>Performance:</b> ${player.job.performance}/100</p>
                 <div class="window-bar">

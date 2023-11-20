@@ -18,7 +18,7 @@ const studyingProcess = (textbox) => {
         if(player.currentCareer.paidBy === 'myself') player.money.expenses -= 6000
         player.currentCareer = {studying: false};
         player.currentEducation = 'none';
-        textbox.innerHTML += `<p>I finished my career</p>`
+        textbox.innerHTML += `<p>I finished my university course</p>`
     }
 }
 
@@ -39,7 +39,7 @@ const statsLimit = (person) => {
 const statsBuffer = () => {
     if(player.freetime.isReading){
         if(player.money.total > 0){
-            player.stats.smartness += 3;  
+            player.stats.Intelligence += 3;  
         } 
         else {
             player.freetime.isReading = false
@@ -76,9 +76,9 @@ const statsBuffer = () => {
 
 const specificEvents = () => {
     switch (player.age) {
-        case 1:
-            obligatoryEvents.firstWords.display()
-            break;
+        // case 1:
+        //     obligatoryEvents.firstWords.display()
+        //     break;
         case 3:
             player.currentEducation = 'preschool'
             textContainer.innerHTML += `<p>I started prescholar</p>`

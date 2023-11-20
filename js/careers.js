@@ -11,12 +11,12 @@ const childhoodEducation = {
 }
 
 const universityCareers = {
-    medic: {
-        label: 'medic',
-        name: 'Medic',
+    Medicine: {
+        label: 'Medicine',
+        name: 'Medicine',
         duration: 4,
         buff(player) {
-            player.stats.smartness += Math.floor(Math.random() * 5)
+            player.stats.Intelligence += Math.floor(Math.random() * 5)
         }
     },
     computerScience: {
@@ -24,7 +24,7 @@ const universityCareers = {
         name: 'Computer science',
         duration: 4,
         buff(player) {
-            player.stats.smartness += Math.floor(Math.random() * 5)
+            player.stats.Intelligence += Math.floor(Math.random() * 5)
             player.skills.programming.xp += 50 + Math.floor(Math.random() * 20)
         }
     },
@@ -33,7 +33,7 @@ const universityCareers = {
         name: 'Biology',
         duration: 4,
         buff(player) {
-            player.stats.smartness += Math.floor(Math.random() * 5)
+            player.stats.Intelligence += Math.floor(Math.random() * 5)
         }
     },
     chemistry: {
@@ -41,15 +41,15 @@ const universityCareers = {
         name: 'Chemistry',
         duration: 4,
         buff(player) {
-            player.stats.smartness += Math.floor(Math.random() * 5)
+            player.stats.Intelligence += Math.floor(Math.random() * 5)
         }
     },
-    history : {
-        label: 'history',
-        name: 'History',
+    Philosophy : {
+        label: 'Philosophy',
+        name: 'Philosophy',
         duration: 4,
         buff(player) {
-            player.stats.smartness += Math.floor(Math.random() * 5)
+            player.stats.Intelligence += Math.floor(Math.random() * 5)
         }
     },
     politicalScience: {
@@ -57,7 +57,7 @@ const universityCareers = {
         name: 'Political science',
         duration: 4,
         buff(player) {
-            player.stats.smartness += Math.floor(Math.random() * 5)
+            player.stats.Intelligence += Math.floor(Math.random() * 5)
         }
     },
     math: {
@@ -65,7 +65,7 @@ const universityCareers = {
         name: 'Math',
         duration: 4,
         buff(player) {
-            player.stats.smartness += Math.floor(Math.random() * 5)
+            player.stats.Intelligence += Math.floor(Math.random() * 5)
         }
     },
 
@@ -132,13 +132,13 @@ const jobs = [
             player.skills.handiness.xp += 5 + Math.floor(Math.random() * 20);
         }
     }, {
-        label: 'History teacher',
+        label: 'Philosophy teacher',
         requirements: {
             minAge: 20,
-            education: 'history'
+            education: 'Philosophy'
         },
-        salary: 50000,
-        field: 'history',
+        salary: 50000000,
+        field: 'Philosophy',
         promotion: 'none',
         buff(player){
             return
@@ -192,43 +192,6 @@ const jobs = [
             return
         }
     }, {
-        label: 'Jr Web developer',
-        requirements: {
-            minAge: 18,
-            education: 'computerScience',
-            programming: 2
-        },
-        salary: 52000,
-        field: 'technology',
-        promotion: 'Web developer',
-        buff(player){
-            player.skills.programming.xp += 5 + Math.floor(Math.random() * 20);
-        }
-    }, {
-        label: 'Web developer',
-        requirements: {
-            education: 'computerScience',
-            programming: 4
-        },
-        salary: 65000,
-        field: 'technology',
-        promotion: 'Sr Web developer',
-        buff(player){
-            player.skills.programming.xp += 5 + Math.floor(Math.random() * 20);
-        }
-    }, {
-        label: 'Sr Web developer',
-        requirements: {
-            education: 'computerScience',
-            programming: 7
-        },
-        salary: 80000,
-        field: 'technology',
-        promotion: 'none',
-        buff(player){
-            player.skills.programming.xp += 5 + Math.floor(Math.random() * 20);
-        }
-    }, {
         label: 'Truck driver',
         requirements: {
             driverLicense: true
@@ -262,46 +225,7 @@ const jobs = [
         buff(player){
             player.skills.music.xp += 5 + Math.floor(Math.random() * 20);
         }
-    }, {
-        label: 'Pianist',
-        requirements: {
-            education: 'music',
-            music: 4
-        },
-        salary: 55000,
-        field: 'music',
-        promotion: 'none',
-        buff(player){
-            player.skills.music.xp += 5 + Math.floor(Math.random() * 20);
-        }
-    }, {
-        label: 'Guru',
-        requirements: {
-            happiness: 100,
-            health: 100,
-            minAge: 18,
-            criminalRecord: 'clean'
-        },
-        salary: 78000,
-        promotion: 'none',
-        buff(player){
-            return
-        }
-    },
-    {
-        label: 'Apprentice carpenter',
-        requirements: {
-            minAge: 18,
-            handiness: 5,
-            fitness: 70
-        },
-        salary: 41000,
-        field: 'construction',
-        promotion: 'none',
-        buff(player){
-            player.skills.handiness.xp += 5 + Math.floor(Math.random() * 20);
-        }
-    },
+    }, 
     {
         label: 'Apprentice construction worker',
         requirements: {
@@ -328,59 +252,4 @@ const jobs = [
             player.skills.handiness.xp += 5 + Math.floor(Math.random() * 20);
         }
     },
-    {
-        label: 'Police officer',
-        requirements: {
-            fitness: 85,
-            minAge: 25,
-            criminalRecord: 'clean'
-        },
-        salary: 55000,
-        field: 'lawEnforcement',
-        promotion: 'none',
-        buff(player){
-            return
-        }
-    },
-    {
-        label: 'Barber',
-        requirements: {
-            handiness: 3,
-            minAge: 18,
-            criminalRecord: 'clean'
-        },
-        salary: 24000,
-        field: 'smallBussiness',
-        promotion: 'none',
-        buff(player){
-            return
-        }
-    },
-    {
-        label: 'Apprentice pediatrician',
-        requirements: {
-            education: 'medic',
-            minAge: 20,
-        },
-        salary: 50000,
-        field: 'medicine',
-        promotion: 'Pediatrician',
-        buff(player){
-            return
-        }
-    },
-    {
-        label:'Pediatrician',
-        requirements: {
-            education: 'medic',
-            minAge: 20,
-            handiness: 3
-        },
-        salary: 75000,
-        field: 'medicine',
-        promotion: 'none',
-        buff(player){
-            return
-        }
-    }
 ];
