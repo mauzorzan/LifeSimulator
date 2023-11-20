@@ -282,14 +282,6 @@ const countriesData = [
         }
     },
     {
-        country: 'North Korea', nationality: 'north korean', language: 'korean', laws: {
-            abort: false,
-            gay_weddings: false,
-            banned_youtube: true,
-            banned_instagram: true
-        }
-    },
-    {
         country: 'India', nationality: 'indian', language: 'hindi', laws: {
             abort: false,
             gay_weddings: false,

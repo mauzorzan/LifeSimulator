@@ -81,7 +81,7 @@ const specificEvents = () => {
         //     break;
         case 3:
             player.currentEducation = 'preschool'
-            textContainer.innerHTML += `<p>I started prescholar</p>`
+            textContainer.innerHTML += `<p>I started preschool</p>`
             break;
 
         case 6:

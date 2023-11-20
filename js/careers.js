@@ -156,6 +156,18 @@ const jobs = [
             return
         }
     },{
+        label: 'Doctor',
+        requirements: {
+            minAge: 20,
+            education: 'medicine'
+        },
+        salary: 200000,
+        field: 'medicine',
+        promotion: 'none',
+        buff(player){
+            return
+        }
+    },{
         label: 'Gym trainer',
         requirements: {
             minAge: 18,

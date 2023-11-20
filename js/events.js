@@ -4,6 +4,7 @@ const adulthoodEvents = [
       display() {
         createStoryEvent({
           title: 'Legalization of Selling Organs',
+          triggered: false,
           body(id) {
             if (player.money.total < 1000) {
               return `
@@ -55,6 +56,7 @@ const adulthoodEvents = [
       display() {
         createStoryEvent({
           title: 'Legalization of Prostitution',
+          triggered: false,
           body(id) {
             if (player.money.total < 1000) {
               return `
@@ -98,6 +100,7 @@ const adulthoodEvents = [
       display() {
           createStoryEvent({
               title: 'Financial Seminar',
+              triggered: false,
               body(id) {
                   return `
                       <p>You receive an invitation to attend a financial seminar on money philosophy.</p>
@@ -132,6 +135,7 @@ const adulthoodEvents = [
       display() {
           createStoryEvent({
               title: 'Startup Opportunity',
+              triggered: false,
               body(id) {
                   return `
                       <p>You have the chance to join a startup company. They offer you an exciting role with potential rewards.</p>
@@ -166,6 +170,7 @@ const adulthoodEvents = [
       display() {
           createStoryEvent({
               title: 'Volunteer Opportunity',
+              triggered: false,
               body(id) {
                   return `
                       <p>An organization is looking for volunteers to contribute to a meaningful cause. Will you volunteer your time?</p>
@@ -199,6 +204,7 @@ const adulthoodEvents = [
       display() {
           createStoryEvent({
               title: 'Health Checkup',
+              triggered: false,
               body(id) {
                   return `
                       <p>It's time for your annual health checkup. Will you go?</p>
@@ -235,6 +241,7 @@ const adulthoodEvents = [
     display() {
       createStoryEvent({
         title: 'Invest in Bitcoin',
+        triggered: false,
         body(id) {
           return `
             <p>You hear about the rise of Bitcoin and its potential for high returns. Do you want to invest?</p>
@@ -287,6 +294,7 @@ const adulthoodEvents = [
       display() {
           createStoryEvent({
               title: 'Scam',
+              triggered: false,
               body(id) {
                   return `
                       <p>You have an opportunity to commit a financial scam on the elderly. What will you do?</p>
@@ -321,6 +329,7 @@ const adulthoodEvents = [
     display() {
       createStoryEvent({
         title: 'Meaning of Money',
+        triggered: false,
         body(id) {
             return `
                 <p>What is the meaning of money to you? What do you want to use your money for? Should you give it all away if it will help people?</p>
@@ -361,6 +370,7 @@ const adulthoodEvents = [
     display() {
       createStoryEvent({
         title: 'Ethical Money Use Challenge',
+        triggered: false,
         body(id) {
           return `
               <p>You face situations where the ethical use of money is in question. Various opportunities arise, and you need to decide how to use your financial resources.</p>
@@ -401,6 +411,7 @@ const adulthoodEvents = [
     display() {
       createStoryEvent({
         title: 'Paid Labor Dilemma',
+        triggered: false,
         body(id) {
           return `
               <p>You encounter situations that question the nature of paid labor and whether it is inherently exploitative or unjust. Should you buy a product from a company that uses sweatshops?</p>
@@ -431,23 +442,146 @@ const adulthoodEvents = [
       textContainer.innerHTML += resultMessage;
       closeStoryEvent(id);
     },
-  }
+  }, {
+    display() {
+      createStoryEvent({
+        title: 'Money and Happiness',
+        triggered: false,
+        body(id) {
+          return `
+            <p>You come across a study that explores the relationship between money and happiness. What are your thoughts on the matter?</p>
+            <br>
+            <div class="option" onclick="adulthoodEvents[11].reflectOnHappiness('${id}')">Reflect on Happiness</div>
+            <div class="option" onclick="adulthoodEvents[11].continueWithLife('${id}')">Continue with Life</div>
+          `;
+        }
+      });
+    },
+    reflectOnHappiness(id) {
+      // Update player stats or provide insights based on the player's reflection
+      player.happiness += 10;
+      const resultMessage = `
+        <p>You've taken a moment to reflect on the relationship between money and happiness, gaining a deeper understanding.</p>
+      `;
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+    continueWithLife(id) {
+      const resultMessage = `
+        <p>You decide to continue with your life, leaving the question of money and happiness for another day.</p>
+      `;
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    }
+  },
+  {
+    display() {
+      createStoryEvent({
+        title: 'Market Norms',
+        triggered: false,
+        body(id) {
+          return `
+            <p>You find yourself in a situation where market norms clash with personal values. How will you navigate this conflict?</p>
+            <br>
+            <div class="option" onclick="adulthoodEvents[12].adhereToMarkets('${id}')">Adhere to Market Norms</div>
+            <div class="option" onclick="adulthoodEvents[12].prioritizeValues('${id}')">Prioritize Personal Values</div>
+          `;
+        }
+      });
+    },
+    adhereToMarkets(id) {
+      // Handle consequences of adhering to market norms (update stats, display messages, etc.)
+      player.happiness -= 15;
+      player.morality -= 10;
+      const resultMessage = `
+        <p>You decide to adhere to market norms, but it comes at the cost of your happiness and moral values.</p>
+      `;
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+    prioritizeValues(id) {
+      // Handle consequences of prioritizing personal values (update stats, display messages, etc.)
+      player.happiness += 20;
+      player.morality += 15;
+      const resultMessage = `
+        <p>You choose to prioritize your personal values over market norms, leading to increased happiness and morality.</p>
+      `;
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    }
+  },
+  {
+    display() {
+      createStoryEvent({
+        title: 'Just Distribution',
+        triggered: false,
+        body(id) {
+          return `
+            <p>You find yourself contemplating whether justice requires a specific distribution of wealth and income. What are your thoughts?</p>
+            <br>
+            <div class="option" onclick="adulthoodEvents[13].considerDistribution('${id}')">Consider Distribution</div>
+            <div class="option" onclick="adulthoodEvents[13].dismissDistribution('${id}')">Dismiss Distribution</div>
+          `;
+        }
+      });
+    },
+    considerDistribution(id) {
+      // Handle consequences of considering the question of just distribution (update stats, display messages, etc.)
+      player.morality += 10;
+      const resultMessage = `
+        <p>You take a moment to consider the question of just distribution, strengthening your moral convictions.</p>
+      `;
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+    dismissDistribution(id) {
+      // Handle consequences of dismissing the question of just distribution (update stats, display messages, etc.)
+      player.morality -= 15;
+      const resultMessage = `
+        <p>You dismiss the idea of a specific distribution as necessary for justice, impacting your moral values negatively.</p>
+      `;
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    }
+  },
+
 ];
 
 
 
-
-
 const eventsHandler = () => {
-    if (!player.alive || player.age < 4) return
+  if (!player.alive || player.age < 4) return;
 
-    const displayHandler = (events, probability) => {
-        const random = Math.floor(Math.random() * 100)
-        const eventIndex = Math.floor(Math.random() * events.length)
-        if (random <= probability) {
-            events[eventIndex].display()
-        }
+  const displayHandler = (events, probability) => {
+    const random = Math.floor(Math.random() * 100);
+
+    // Filter events that haven't been triggered yet
+    const availableEvents = events.filter((event) => !event.triggered);
+
+    if (availableEvents.length === 0) {
+      // Reset triggered property for all events if all have been triggered
+      events.forEach((event) => {
+        event.triggered = false;
+      });
+      return;
     }
 
-    if (player.lifeStage === 'adulthood') displayHandler(adulthoodEvents, 30)
-}
+    const eventIndex = Math.floor(Math.random() * availableEvents.length);
+
+    if (random <= probability) {
+      // Mark the chosen event as triggered
+      availableEvents[eventIndex].triggered = true;
+
+      // Display the chosen event
+      availableEvents[eventIndex].display();
+    }
+  };
+
+  if (player.lifeStage === 'adulthood') displayHandler(adulthoodEvents, 10000);
+};
