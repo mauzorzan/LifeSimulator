@@ -1203,7 +1203,6 @@ const windows = {
                 <p><b>Creation year: </b>${stats.created_at}</p>
                 <div class="option" onclick="windows.socialMedia.youtube.recordVideo.display()">Record a video</div>
                 <div class="option" onclick="windows.socialMedia.youtube.browseVideos()">Browse my videos</div>
-                <div class="option" onclick="alert('Not implemented yet')">Ranking</div>
                 <div class="option" onclick="windows.socialMedia.display()">Close</div>
                 `
             },
