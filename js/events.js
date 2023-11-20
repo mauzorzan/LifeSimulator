@@ -75,6 +75,7 @@ const adulthoodEvents = [
           });
         },
         joinProstitution(id) {
+        player.money.total += 1000;
           const resultMessage = `
                 <p>You've become a prostitute, your happiness and health decreased</p>
             `;
@@ -178,7 +179,7 @@ const adulthoodEvents = [
         },
         volunteer(id) {
             const resultMessage = `
-                <p>You've chosen to volunteer. Your actions contribute to a positive change.</p>
+                <p>You've chosen to volunteer. Your actions contribute to a positive change and you gain morality</p>
             `;
     
             // Display the result and close the event
@@ -220,6 +221,7 @@ const adulthoodEvents = [
           closeStoryEvent(id);
         },
         investInheritance(id) {
+            player.money.total +=  10000;
           // Handle the consequences of investing the inheritance (update stats, display messages, etc.)
           const resultMessage = `
                 <p>You've wisely invested the inheritance for future financial growth.</p>
@@ -247,9 +249,10 @@ const adulthoodEvents = [
           });
         },
         attendCheckup(id) {
+            player.money.total -= 1000;
           // Handle the consequences of attending the health checkup (update stats, display messages, etc.)
           const resultMessage = `
-                <p>You've attended the health checkup and received valuable insights into your well-being.</p>
+                <p>You've attended the health checkup and received valuable insights into your well-being at the cost of money.</p>
             `;
     
           // Display the result and close the event
@@ -267,6 +270,78 @@ const adulthoodEvents = [
           closeStoryEvent(id);
         },
       },
+      {
+        display() {
+            createStoryEvent({
+                title: 'Invest in Bitcoin',
+                body(id) {
+                    return `
+                        <p>You hear about the rise of Bitcoin and its potential for high returns. Do you want to invest?</p>
+                        <br>
+                        <div class="option" onclick="adulthoodEvents[7].investBitcoin('${id}')">Invest in Bitcoin</div>
+                        <div class="option" onclick="adulthoodEvents[7].ignoreBitcoin('${id}')">Ignore the opportunity</div>
+                    `;
+                },
+            });
+        },
+        investBitcoin(id) {
+            player.money.total += 10000;
+            // Handle the consequences of investing in Bitcoin (update stats, display messages, etc.)
+            const resultMessage = `
+                <p>You've invested in Bitcoin. The value may fluctuate, but you gained 10000</p>
+            `;
+    
+            // Display the result and close the event
+            textContainer.innerHTML += resultMessage;
+            closeStoryEvent(id);
+        },
+        ignoreBitcoin(id) {
+            // Handle the consequences of ignoring the Bitcoin investment opportunity (update stats, display messages, etc.)
+            const resultMessage = `
+                <p>You've decided not to invest in Bitcoin at this time.</p>
+            `;
+    
+            // Display the result and close the event
+            textContainer.innerHTML += resultMessage;
+            closeStoryEvent(id);
+        },
+    },
+
+    {
+        display() {
+            createStoryEvent({
+                title: 'Scam',
+                body(id) {
+                    return `
+                        <p>You have an opportunity to commit a financial scam on the elderly. What will you do?</p>
+                        <br>
+                        <div class="option" onclick="adulthoodEvents[8].scam('${id}')">Commit a scam</div>
+                        <div class="option" onclick="adulthoodEvents[8].notscam('${id}')">Don't commit a scam</div>
+                    `;
+                }
+            });
+        },
+        scam(id) {
+            player.money.total += 1000;
+            const resultMessage = `
+                <p>You've decided to scam the elderly, gaining money but losing happines and morality</p>
+            `;
+    
+            // Display the result and close the event
+            textContainer.innerHTML += resultMessage;
+            closeStoryEvent(id);
+        },
+        notscam(id){
+            
+                const resultMessage = `
+                    <p>You've decided to not scam the elderly.</p>
+                `;
+        
+                // Display the result and close the event
+                textContainer.innerHTML += resultMessage;
+                closeStoryEvent(id);
+        }
+    },
     
 ];
 
