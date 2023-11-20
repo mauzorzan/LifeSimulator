@@ -23,9 +23,7 @@ class Person {
     stats = {
         health: randomStat(70, 30),
         happiness: randomStat(0, 100),
-        Intelligence: randomStat(0, 100),
-        fitness: randomStat(0, 35),
-        appearance: randomStat(0, 100)
+        morality: 100
     }
 
     relationships = {

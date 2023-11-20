@@ -157,8 +157,8 @@ const statbarColorer = () => {
 }
 
 const handleStatBars = (person, isPlayer) => {
-    const stats = ['health', 'happiness', 'Intelligence', 'appearance', 'fitness'];
-    const windowStat = ['relationWithPlayer', 'health', 'happiness', 'Intelligence', 'appearance', 'fitness']
+    const stats = ['health', 'happiness', 'morality'];
+    const windowStat = ['relationWithPlayer', 'health', 'happiness', 'morality']
 
     if(isPlayer) for (let stat of stats) {
         document.getElementById(`${stat}-bar`).style.width = `${person.stats[stat]}%`

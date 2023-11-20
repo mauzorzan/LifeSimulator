@@ -143,6 +143,7 @@ const adulthoodEvents = [
           });
       },
       joinStartup(id) {
+        player.money.total += 1000;
           const resultMessage = `
               <p>You've joined the startup. It's a risky but thrilling venture!</p>
           `;
@@ -231,37 +232,55 @@ const adulthoodEvents = [
 
   // New event 7 - Invest in Bitcoin
   {
-      display() {
-          createStoryEvent({
-              title: 'Invest in Bitcoin',
-              body(id) {
-                  return `
-                      <p>You hear about the rise of Bitcoin and its potential for high returns. Do you want to invest?</p>
-                      <br>
-                      <div class="option" onclick="adulthoodEvents[6].investBitcoin('${id}')">Invest in Bitcoin</div>
-                      <div class="option" onclick="adulthoodEvents[6].ignoreBitcoin('${id}')">Ignore the opportunity</div>
-                  `;
-              }
-          });
-      },
-      investBitcoin(id) {
-          player.money.total += 5000;
-          const resultMessage = `
-              <p>You've invested in Bitcoin. The value may fluctuate, but you gained $5000.</p>
+    display() {
+      createStoryEvent({
+        title: 'Invest in Bitcoin',
+        body(id) {
+          return `
+            <p>You hear about the rise of Bitcoin and its potential for high returns. Do you want to invest?</p>
+            <br>
+            <div class="option" onclick="adulthoodEvents[6].investBitcoin('${id}')">Invest in Bitcoin</div>
+            <div class="option" onclick="adulthoodEvents[6].ignoreBitcoin('${id}')">Ignore the opportunity</div>
           `;
-          // Display the result and close the event
-          textContainer.innerHTML += resultMessage;
-          closeStoryEvent(id);
-      },
-      ignoreBitcoin(id) {
-          const resultMessage = `
-              <p>You've decided not to invest in Bitcoin at this time.</p>
-          `;
-          // Display the result and close the event
-          textContainer.innerHTML += resultMessage;
-          closeStoryEvent(id);
+        }
+      });
+    },
+    investBitcoin(id) {
+      // Introduce a random factor for the success of the investment
+      const successChance = Math.random();
+  
+      if (successChance < 0.5) {
+        // Investment is successful
+        const gainedAmount = 5000;
+        player.money.total += gainedAmount;
+        const resultMessage = `
+          <p>You've successfully invested in Bitcoin and gained $${gainedAmount}.</p>
+        `;
+        // Display the result and close the event
+        textContainer.innerHTML += resultMessage;
+      } else {
+        // Investment is unsuccessful
+        const lostAmount = player.money.total*0.5; // Adjust the amount as needed
+        player.money.total -= lostAmount;
+        const resultMessage = `
+          <p>Your Bitcoin investment didn't go as planned, and you lost $${lostAmount}.</p>
+        `;
+        // Display the result and close the event
+        textContainer.innerHTML += resultMessage;
       }
+  
+      closeStoryEvent(id);
+    },
+    ignoreBitcoin(id) {
+      const resultMessage = `
+        <p>You've decided not to invest in Bitcoin at this time.</p>
+      `;
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    }
   },
+  
 
   // New event 8 - Scam
   {
@@ -298,53 +317,124 @@ const adulthoodEvents = [
           closeStoryEvent(id);
       }
   },
+  {
+    display() {
+      createStoryEvent({
+        title: 'Meaning of Money',
+        body(id) {
+            return `
+                <p>What is the meaning of money to you? What do you want to use your money for? Should you give it all away if it will help people?</p>
+                <br>
+                <div class="option" onclick="adulthoodEvents[8].donate('${id}')">Donate all money</div>
+                <div class="option" onclick="adulthoodEvents[8].keep('${id}')">Keep Money</div>
+            `;
+          
+          }
+        },
+      )},
+    donate(id) {
+      // Update player stats
+      player.happiness += 1000;
+      player.money.total -= 100000000;
+
+      // Return the result message
+      const resultMessage = `
+                <p>You've donated all your money, but you feel a certain peace</p>
+            `;
+
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+    keep(id) {
+      // Handle the consequences of ignoring the opportunity (update stats, display messages, etc.)
+      const resultMessage = `
+                <p>You've decided to keep your money</p>
+            `;
+
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+  },
+  {
+    display() {
+      createStoryEvent({
+        title: 'Ethical Money Use Challenge',
+        body(id) {
+          return `
+              <p>You face situations where the ethical use of money is in question. Various opportunities arise, and you need to decide how to use your financial resources.</p>
+              <br>
+              <div class="option" onclick="adulthoodEvents[9].donate('${id}')">Donate to a charitable cause</div>
+              <div class="option" onclick="adulthoodEvents[9].exploit('${id}')">Exploit a financial opportunity</div>
+          `;
+        }
+      });
+    },
+    donate(id) {
+      // Update player stats
+      player.happiness += 100;
+      player.morality += 20;
+      player.money.total -= 5000;
+  
+      // Return the result message
+      const resultMessage = `
+              <p>You've donated to a charitable cause, gaining moral satisfaction.</p>
+          `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+    exploit(id) {
+      // Handle the consequences of exploiting the financial opportunity (update stats, display messages, etc.)
+      const resultMessage = `
+              <p>You've prioritized personal gain over ethical considerations, potentially facing moral consequences.</p>
+          `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+  },
+  {
+    display() {
+      createStoryEvent({
+        title: 'Paid Labor Dilemma',
+        body(id) {
+          return `
+              <p>You encounter situations that question the nature of paid labor and whether it is inherently exploitative or unjust. Should you buy a product from a company that uses sweatshops?</p>
+              <br>
+              <div class="option" onclick="adulthoodEvents[10].embraceSweatshop('${id}')">Embrace sweatshop labor</div>
+              <div class="option" onclick="adulthoodEvents[10].rejectLabor('${id}')">Reject the labor</div>
+          `;
+        }
+      });
+    },
+    embraceSweatshop(id) {
+      // Handle the consequences of embracing sweatshop labor (update stats, display messages, etc.)
+      const resultMessage = `
+              <p>You've bought the product knowing the moral implications of your purchase.</p>
+          `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+    rejectLabor(id) {
+      // Handle the consequences of rejecting the labor (update stats, display messages, etc.)
+      const resultMessage = `
+              <p>You've boycotted the company but sacrificed the convenience of an easy product.</p>
+          `;
+  
+      // Display the result and close the event
+      textContainer.innerHTML += resultMessage;
+      closeStoryEvent(id);
+    },
+  }
 ];
 
 
-
-
-const jobEvents = [
-    {
-        display() {
-            textContainer.innerHTML += `
-            <p>We have a job meeting</p>
-            `
-            scrolldown(textContainer)
-            createStoryEvent({
-                title: 'Job Meeting',
-                body(id) {
-                    return `
-                    <p>You have a meeting in your job, what are you going to do?</p>
-                        <div class="option" onclick="jobEvents[0].dontSpeak('${id}')">Dont say a word</div>
-                        <div class="option" onclick="jobEvents[0].proposeIdea('${id}')">Propose a revolutionary idea</div>
-                `}
-            })
-        },
-        dontSpeak(id) {
-            textContainer.innerHTML += `
-            <p>I said nothing in that meeting</p>
-            `
-            closeStoryEvent(id)
-            scrolldown(textContainer)
-        },
-        proposeIdea(id) {
-            const Intelligence = player.stats.Intelligence;
-            const random = Math.floor(Math.random() * 50) + 50
-
-            if (random <= Intelligence) {
-                textContainer.innerHTML += `
-                <p>They congratulated me</p>
-                `
-                closeStoryEvent(id)
-            } else
-                textContainer.innerHTML += `
-            <p>They told me to shut up</p>
-            `
-            closeStoryEvent(id)
-            scrolldown(textContainer)
-        }
-    }
-]
 
 
 
@@ -359,10 +449,5 @@ const eventsHandler = () => {
         }
     }
 
-    if (player.prison.jailed) return displayHandler(prisonEvents, 10)
-
-    if (player.job != 'none') displayHandler(jobEvents, 8)
-
-
-    else if (player.lifeStage === 'adulthood') displayHandler(adulthoodEvents, 30)
+    if (player.lifeStage === 'adulthood') displayHandler(adulthoodEvents, 30)
 }

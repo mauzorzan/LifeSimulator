@@ -1390,15 +1390,15 @@ const windows = {
                 <li>Opinion: <div class="window-bar"><div class="bar-progress" id="window-relationWithPlayer-bar"></div></div> </li>
                 <li>Health: <div class="window-bar"><div class="bar-progress" id="window-health-bar"></div></div> </li>
                 <li>Happiness: <div class="window-bar"><div class="bar-progress" id="window-happiness-bar"></div></div> </li>
-                <li>Intelligence: <div class="window-bar"><div class="bar-progress" id="window-Intelligence-bar"></div></div> </li>
-                <li>Appearance: <div class="window-bar"><div class="bar-progress" id="window-appearance-bar"></div></div> </li>
-                <li>Fitness: <div class="window-bar"><div class="bar-progress" id="window-fitness-bar"></div></div> </li>
+                <li>Morality: <div class="window-bar"><div class="bar-progress" id="window-happiness-bar"></div></div> </li>
                 </ul>
         
                 ${!player.prison.jailed && person.alive ? `
                 <div class="option" onclick="windows.relations.friendlyOptions(this)" data-index="${characterIndex}">Friendly</div>
 
                 <div class="option" onclick="windows.relations.meanOptions(this)" data-index="${characterIndex}">Mean</div>
+
+                <div class="option" onclick="windows.relations.askMoney(this)" data-index="${characterIndex}">Ask for money</div>
 
                 ${personCategory === 'partner' ? `
                 <div class="option" onclick="windows.relations.romanticOptions(this)" data-index="${characterIndex}">Romantic</div>
@@ -1415,6 +1415,14 @@ const windows = {
 
             eventBody.innerHTML = `
             <div class="option ${player.actions.friendlyActions < 3 ? '' : 'disabled'}" onclick="windows.relations.friendly.spendTime(this)" data-index="${index}">Spend time together</div>
+            <div class="option" onclick="closeEvent()">Close</div>
+            `
+        },
+        askMoney(data) {
+            const index = data.getAttribute('data-index');
+
+            eventBody.innerHTML = `
+            <div class="option" onclick="windows.relations.money.askMoney(this)" data-index="${index}">Ask For Money</div>
             <div class="option" onclick="closeEvent()">Close</div>
             `
         },
@@ -1470,6 +1478,50 @@ const windows = {
                 textContainer.innerHTML += `<p>I spent time with ${person.fullName}</p>`
             }
         },
+        money: {
+            askMoney(data) {
+              const index = data.getAttribute('data-index');
+              let person = characters[index];
+          
+              // Check if the player has already asked for money three times
+              if (player.actions.askMoney >= 3) {
+                eventBody.innerHTML = `
+                  <p>You've already asked ${person.fullName} for money three times.</p>
+                  <div class="option" onclick="closeEvent()">Close</div>
+                `;
+                return;
+              }
+          
+              // Check if the player has enough friendly actions to ask for money
+              if (player.actions.friendlyActions >= 3) {
+                eventBody.innerHTML = `
+                  <p>You've already been friendly to ${person.fullName} three times.</p>
+                  <div class="option" onclick="closeEvent()">Close</div>
+                `;
+                return;
+              }
+          
+              // Update player and person stats
+              player.money.total += 1000;
+              player.actions.askMoney++;
+              player.actions.friendlyActions++;
+              person.stats.relationWithPlayer -= 8;
+          
+              // Display the result and options
+              eventBody.innerHTML = `
+                <p>You asked ${person.fullName} for money.</p>
+                <p>They gave you $1000, but your relationship decreased by 8.</p>
+                <div class="option" onclick="closeEvent()">Close</div>
+              `;
+          
+              // Update relation bars
+              windows.handleRelationBars();
+          
+              // Log the action
+              textContainer.innerHTML += `<p>You asked money from ${person.fullName}</p>`;
+            },
+          },
+
         mean: {
             yell(data) {
                 if (player.actions.meanActions >= 3) return
@@ -1814,6 +1866,7 @@ const windows = {
             if (loanApproved) {
                 textContainer.innerHTML += `<p>I got approved for a loan</p>`;
                 windows.university.chooseCareer(undefined, 'loan');
+                player.money.total -= 100000;
             } else {
                 textContainer.innerHTML += `<p>My loan application was rejected</p>`;
     
